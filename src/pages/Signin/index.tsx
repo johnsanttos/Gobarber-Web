@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef , useContext} from 'react';
 import { Container, Content, Background} from './style';
 import {FiLogIn, FiMail, FiLock} from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -8,10 +8,12 @@ import * as Yup from 'yup'
 import logoImg from '../../assets/logo.svg';
 import { GetValidationErrors } from '../../utils/getValidationerrors';
 import { FormHandles } from '@unform/core';
-
+import { AuthContext } from '../../context/AuthContext';
 
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null)
+
+    const {signIn} = useContext(AuthContext)
 
     const handleLogin = useCallback(async (data: object) => {
         try {
@@ -27,6 +29,8 @@ const SignIn: React.FC = () => {
                 abortEarly: false,
             })
 
+            signIn()
+
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 console.log(err.inner)
@@ -37,7 +41,7 @@ const SignIn: React.FC = () => {
                 return;
             }
         }
-    }, [])
+    }, [signIn])
 
     return (
 
