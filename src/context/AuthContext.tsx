@@ -1,8 +1,14 @@
 import { createContext, useCallback, ReactNode} from "react";
+import api from '../services/api'
+
+interface SignInProps {
+    email: string;
+    password: string
+}
 
 interface AuthContextData{
     name: string;
-    signIn (): void
+    signIn(credentials: SignInProps): Promise<void>
 }
 
 type AuthProviderProps = {
@@ -13,8 +19,13 @@ export const AuthContext = createContext <AuthContextData>( {} as AuthContextDat
 
 export const AuthProvider: React.FC <AuthProviderProps>= ({children}) => {
 
-    const signIn = useCallback (() => {
-console.log ('signin')
+    const signIn = useCallback (async( {email, password}: SignInProps ) => {
+const response = await api.post('sessions', {
+    email,
+    password
+})
+
+console.log ('acesssou  ' , response.data)
     },[])
 
     return (
