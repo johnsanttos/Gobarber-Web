@@ -19,7 +19,9 @@ const SignIn: React.FC = () => {
     }
 
 
-    const {signIn} = useContext(AuthContext)
+    const {user, signIn} = useContext(AuthContext)
+
+    console.log ('useeeeeerrrrr' , user)
 
     const handleLogin = useCallback(async (data: SignInFormData) => {
         try {
