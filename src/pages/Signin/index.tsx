@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import logoImg from '../../assets/logo.svg';
 import { GetValidationErrors } from '../../utils/getValidationerrors';
 import { FormHandles } from '@unform/core';
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/AuthContext';
 
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null)
@@ -19,9 +19,9 @@ const SignIn: React.FC = () => {
     }
 
 
-    const {user, signIn} = useContext(AuthContext)
+    const {user, signIn} = useAuth()
 
-    console.log ('useeeeeerrrrr' , user)
+    console.log ('useeeeeerrrrre' , user)
 
     const handleLogin = useCallback(async (data: SignInFormData) => {
         try {
